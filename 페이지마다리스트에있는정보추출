@@ -1,0 +1,25 @@
+# 목록페이지 바꿔가며 크롤링 하기
+import urllib.request
+from bs4 import BeautifulSoup
+
+
+def main():
+    comments = []
+    ########################수정해야함##################################
+    ori_url = " url 입력 하시오"
+    ########################수정해야함##################################
+    for i in range(200):
+        #########################수정해야함##################################200을 페이지 수에 맞추어(이렇게 하기 시르면  try catch문쓰기)
+        url = ori_url + str(i)
+        source_code = urllib.request.urlopen(url).read()
+        soup = BeautifulSoup(source_code, "html.parser")
+
+        for comment in soup.find_all("span", class_="txt_reply"):
+            comments.append(comment.get_text().strip("\n"))
+
+    print(comments)
+
+
+
+if __name__ == "__main__":
+    main()
